@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { getSharedLenis } from "@/lib/lenis-instance";
 
 const SmoothScroll = dynamic(
   () => import("@/components/landing/experience/SmoothScroll"),
@@ -65,7 +66,21 @@ const LandingEnhancements = () => {
       {showBackToTop ? (
         <button
           type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => {
+            // Round 3: scroll through Lenis when it owns scrolling.
+            // A native smooth scroll under an active Lenis instance
+            // could leave ScrollTrigger's pinned Journey canvas
+            // desynced, its frozen last frame fixed over the hero.
+            // Lenis scrollTo keeps the same smooth feel and keeps
+            // ScrollTrigger in sync. Without Lenis (reduced motion),
+            // the native smooth scroll is unchanged.
+            const lenis = getSharedLenis();
+            if (lenis) {
+              lenis.scrollTo(0, { duration: 1.15 });
+            } else {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
           className="fixed bottom-5 right-5 z-[70] rounded-full px-4 py-2 text-white transition duration-300 gradient-btn"
         >
           Back to Top

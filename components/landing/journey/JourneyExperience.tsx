@@ -394,6 +394,18 @@ const JourneyExperience = () => {
     visibilityObserver = new IntersectionObserver(
       ([entry]) => {
         journeyVisible = entry.isIntersecting;
+        // Round 3: the pinned host's on-screen presence used to be
+        // owned only by ScrollTrigger's pin state. A Back to Top
+        // jump could leave that state desynced, so the host stayed
+        // fixed over the hero showing its frozen last frame (the
+        // render loop stops once the section leaves the viewport).
+        // Gate the host on real section visibility instead: while
+        // pinned, the 650vh section spans the viewport, so the host
+        // stays visible through the whole Journey; above the section
+        // (hero) or below it, the host is hidden no matter what the
+        // pin state says. This is a safety net under the Lenis
+        // Back to Top fix, not a design change.
+        host.style.visibility = entry.isIntersecting ? "visible" : "hidden";
         if (entry.isIntersecting && !started) {
           started = true;
           void boot();

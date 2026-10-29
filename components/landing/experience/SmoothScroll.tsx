@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setSharedLenis, clearSharedLenis } from "@/lib/lenis-instance";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,6 +21,10 @@ const SmoothScroll = () => {
 
     lenis.on("scroll", ScrollTrigger.update);
 
+    // Round 3: share the instance so Back to Top scrolls through
+    // Lenis instead of a native smooth scroll (see lib/lenis-instance).
+    setSharedLenis(lenis);
+
     const ticker = (time: number) => {
       lenis.raf(time * 1000);
     };
@@ -30,6 +35,7 @@ const SmoothScroll = () => {
 
     return () => {
       gsap.ticker.remove(ticker);
+      clearSharedLenis(lenis);
       lenis.destroy();
       document.documentElement.classList.remove("lenis");
     };
