@@ -85,35 +85,44 @@ const StoryDirector = () => {
         );
       }
 
+      // Round 1: the caption used to be derived from whole-page scroll
+      // progress, while the dot rail is derived from section triggers,
+      // so the two never reliably agreed. Drive the caption from the
+      // same section triggers as the rail, with one line per section.
       const caption = document.querySelector(".story-caption-text");
       if (caption) {
-        const lines = [
-          "Chapter I: Find your direction",
-          "Chapter II: Explore the path",
-          "Chapter III: Grow with confidence",
-          "Chapter IV: A personal approach",
-          "Chapter V: Tools that support progress",
-          "Chapter VI: Back ideas that matter",
-          "Chapter VII: Start your journey",
-        ];
-        let last = -1;
-        ScrollTrigger.create({
-          start: 0,
-          end: "max",
-          onUpdate: (self) => {
-            const idx = Math.min(lines.length - 1, Math.floor(self.progress * lines.length));
-            if (idx === last) return;
-            last = idx;
-            gsap.to(caption, {
-              opacity: 0,
-              y: -8,
-              duration: 0.22,
-              onComplete: () => {
-                caption.textContent = lines[idx];
-                gsap.to(caption, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" });
-              },
-            });
-          },
+        const lines: Record<string, string> = {
+          home: "Chapter I: Find your direction",
+          journey: "Chapter II: Explore the path",
+          "about-us": "Chapter III: Grow with confidence",
+          our_approach: "Chapter IV: A personal approach",
+          core_methods_tools: "Chapter V: Tools that support progress",
+          invest_in_innovation: "Chapter VI: Back ideas that matter",
+          contact_us: "Chapter VII: Start your journey",
+        };
+        let last = "";
+        const show = (target: string) => {
+          const line = lines[target];
+          if (!line || line === last) return;
+          last = line;
+          gsap.to(caption, {
+            opacity: 0,
+            y: -8,
+            duration: 0.22,
+            onComplete: () => {
+              caption.textContent = line;
+              gsap.to(caption, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" });
+            },
+          });
+        };
+        Object.keys(lines).forEach((target) => {
+          ScrollTrigger.create({
+            trigger: `#${target}`,
+            start: "top center",
+            end: "bottom center",
+            onEnter: () => show(target),
+            onEnterBack: () => show(target),
+          });
         });
       }
     });
