@@ -211,9 +211,6 @@ const MobileNavbar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
                     <span className="font-medium text-sm">
                       Email: admin@coachchain.io
                     </span>
-                    <span className="font-medium text-sm">
-                      Phone: +971 0235568890
-                    </span>
                   </div>
                 </div>
               </div>

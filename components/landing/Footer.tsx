@@ -10,21 +10,13 @@ const FooterLayout: React.FC = () => {
       <Container>
         <div className="flex flex-col gap-[36px] pt-[40px] pb-[26px]">
           <div className="flex justify-between items-center">
-            {/* Round 1: the footer wordmark image read as a different
-                brand than the header. Use the same icon plus
-                CoachChain text as the header so the brand matches. */}
             <div className="flex items-center justify-center lg:justify-between">
-              <div className="flex items-center gap-2">
-                <Image
-                  src="/images/logos/logo.svg"
-                  alt=""
-                  width={40}
-                  height={40}
-                />
-                <span className="text-white text-base font-semibold font-montserrat">
-                  CoachChain
-                </span>
-              </div>
+              <Image
+                src="/images/logos/main-logo.svg"
+                alt=""
+                width={170}
+                height={40}
+              />
             </div>
 
             <div className="hidden md:flex gap-[8px]">
@@ -53,21 +45,6 @@ const FooterLayout: React.FC = () => {
           </p>
 
           <div className="flex flex-col lg:flex-row gap-[34px] lg:gap-[150px] xl:mr-[64px]">
-            <div className="flex flex-col gap-[20px]">
-              <span className="font-medium text-[14px]">Legal</span>
-              <div className="flex flex-col gap-[6px]">
-                <Link href="/privacy" className="font-medium text-[12px] leading-[20px]">
-                  Privacy Policy
-                </Link>
-                <Link href="/terms" className="font-medium text-[12px] leading-[20px]">
-                  Terms & Conditions
-                </Link>
-                <Link href="/cookies" className="font-medium text-[12px] leading-[20px]">
-                  Cookie Policy
-                </Link>
-              </div>
-            </div>
-
             <div className="md:hidden flex gap-[16px] mt-[26px]">
               {SOCIAL_LINKS.map((item) => (
                 <Link
@@ -90,9 +67,6 @@ const FooterLayout: React.FC = () => {
               <div className="flex flex-col">
                 <span className="font-medium text-[12px] leading-[20px]">
                   Email: admin@coachchain.io
-                </span>
-                <span className="font-medium text-[12px] leading-[20px]">
-                  Phone: +971 0235568890
                 </span>
               </div>
             </div>
