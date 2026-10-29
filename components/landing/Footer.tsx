@@ -10,13 +10,21 @@ const FooterLayout: React.FC = () => {
       <Container>
         <div className="flex flex-col gap-[36px] pt-[40px] pb-[26px]">
           <div className="flex justify-between items-center">
+            {/* Round 1: the footer wordmark image read as a different
+                brand than the header. Use the same icon plus
+                CoachChain text as the header so the brand matches. */}
             <div className="flex items-center justify-center lg:justify-between">
-              <Image
-                src="/images/logos/main-logo.svg"
-                alt=""
-                width={170}
-                height={40}
-              />
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/images/logos/logo.svg"
+                  alt=""
+                  width={40}
+                  height={40}
+                />
+                <span className="text-white text-base font-semibold font-montserrat">
+                  CoachChain
+                </span>
+              </div>
             </div>
 
             <div className="hidden md:flex gap-[8px]">

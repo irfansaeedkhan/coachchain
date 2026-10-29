@@ -109,7 +109,12 @@ const OurApproach: React.FC = () => {
         />
 
         <div className="lg:h-[362px] lg:relative approach-cards-stage">
-          <div className="lg:absolute lg:w-[100dvw] left-0 lg:left-[50%] transform lg:-translate-x-1/2 flex flex-col lg:flex-row gap-[30px] lg:gap-[20px]">
+          {/* Round 1: 100dvw includes the scrollbar width, so the
+              row ran past the right viewport edge inside the page's
+              overflow-hidden wrapper and the third card clipped.
+              Keep the full-bleed look but leave a scrollbar-wide
+              margin so no card touches the edge or the dot rail. */}
+          <div className="lg:absolute lg:w-[calc(100dvw-20px)] left-0 lg:left-[50%] transform lg:-translate-x-1/2 flex flex-col lg:flex-row gap-[30px] lg:gap-[20px]">
             {pageMeta.content.items.map((item, index) => {
               return (
                 <div

@@ -14,7 +14,7 @@ export default function TermsPage() {
       </Link>
       <h1 className="mt-6 text-[32px] font-semibold">Terms & Conditions</h1>
       <p className="mt-4 text-[16px] leading-relaxed">
-        By using coachchain.io you agree to use the site for lawful enquiries
+        By using this website you agree to use the site for lawful enquiries
         and collaboration. Programme details are confirmed in writing before any
         engagement begins.
       </p>

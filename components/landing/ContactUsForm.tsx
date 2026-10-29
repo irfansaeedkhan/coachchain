@@ -15,7 +15,7 @@ const ContactUsForm: React.FC<ContactUsFormProps> = ({ ...props }) => {
       <div className="flex flex-col gap-[34px] my-[24px]">
         <div className="text-center flex flex-col gap-[14px]">
           <Typography
-            text="Fill out the form below and select the areas that interest you most."
+            text="Fill out the form below and tell us what interests you most."
             className="px-[10px] lg:px-0 text-[14px] lg:text-[16px] font-medium"
           />
           <Typography text="Let’s shape the future together." className="text-[20px] lg:text-[24px] font-medium" />

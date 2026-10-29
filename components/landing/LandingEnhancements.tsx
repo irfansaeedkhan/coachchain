@@ -65,7 +65,11 @@ const LandingEnhancements = () => {
       {showBackToTop ? (
         <button
           type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          // Round 1: smooth scrolling back to top could leave the
+          // pinned Journey canvas superimposed over the hero while
+          // ScrollTrigger caught up. Jump instantly instead so the
+          // hero is the only thing on screen after the click.
+          onClick={() => window.scrollTo({ top: 0, behavior: "auto" })}
           className="fixed bottom-5 right-5 z-[70] rounded-full px-4 py-2 text-white transition duration-300 gradient-btn"
         >
           Back to Top
