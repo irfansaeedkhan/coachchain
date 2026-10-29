@@ -4,16 +4,42 @@ import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import LoaderIcon from "./LoaderIcon";
 
+const LOADER_SEEN_KEY = "coachchain-loader-seen";
+
 const Loader = () => {
+  // Round 1: the splash ran on every fresh load, including returning
+  // from a legal page, so every visit started with a full black
+  // screen. Show it once per browser session only. Respect reduced
+  // motion by skipping it entirely.
+  const [seen] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return (
+        window.sessionStorage.getItem(LOADER_SEEN_KEY) === "1" ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      );
+    } catch {
+      return false;
+    }
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (seen) {
+      setLoading(false);
+      return;
+    }
     document.body.style.overflow = "hidden";
 
     const tl = gsap.timeline({
       onComplete: () => {
         setLoading(false);
         document.body.style.overflow = "auto";
+        try {
+          window.sessionStorage.setItem(LOADER_SEEN_KEY, "1");
+        } catch {
+          // Session storage unavailable: splash simply runs again.
+        }
       },
     });
 
@@ -42,7 +68,11 @@ const Loader = () => {
         },
         "-=0.2"
       );
-  }, []);
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [seen]);
 
   if (!loading) return null;
 
