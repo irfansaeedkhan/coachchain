@@ -27,8 +27,10 @@ body {
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
 }
 
+/* Round 1: no hover lift on Methods cards. They open nothing, so a
+   lift on hover read as a clickable button. */
 .core-methods-card-container:hover {
-  transform: translateY(-8px);
+  transform: none;
 }
 
 .core-methods-card-container .card-container {

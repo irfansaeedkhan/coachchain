@@ -473,7 +473,7 @@ const JourneyExperience = () => {
         </div>
 
         {!ready && (
-          <div className="absolute inset-0 z-40 flex items-center justify-center bg-[#070412] text-white/60 font-montserrat text-sm tracking-widest uppercase">
+          <div className="absolute inset-0 z-40 flex items-center justify-center bg-gradient-to-b from-[#514BFF] to-[#A376FE] text-white font-montserrat text-base tracking-widest uppercase">
             Preparing journey…
           </div>
         )}
